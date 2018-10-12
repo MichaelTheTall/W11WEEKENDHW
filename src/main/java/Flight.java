@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Flight {
     private Plane plane;
     private int flightnumber;

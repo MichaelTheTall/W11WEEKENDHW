@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Plane {
     private Type type;
     private Airline airline;
+
     private ArrayList<Person> passengers;
 
     public Plane(Type type, Airline airline){
@@ -38,6 +39,10 @@ public class Plane {
 
     public void everybodyOff() {
         passengers.clear();
+    }
+
+    public ArrayList<Person> getPassengers() {
+        return passengers;
     }
 
 }

@@ -61,4 +61,10 @@ public class Airport {
             return null;
         }
     }
+
+    public void sellTicket(Person person, Flight flight) {
+        if (flight.getPlane().space() != 0) {
+            flight.getPlane().addPassenger(person);
+        }
+    }
 }

@@ -98,5 +98,11 @@ public class AirportTest {
     }
 
     @Test
-    public void 
+    public void sellTicket() {
+        airport.addPlane(plane);
+        airport.addFlight(plane, AirportCode.BER, 123);
+        Flight testflight = airport.getFlightList().get(0);
+        airport.sellTicket(person, testflight);
+        assertEquals(1, testflight.getPlane().boarded());
+    }
 }
