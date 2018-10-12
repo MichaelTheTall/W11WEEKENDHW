@@ -9,5 +9,5 @@ public class Airport {
         hangar = new ArrayList<>();
     }
 
-    
+
 }
