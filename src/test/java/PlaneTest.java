@@ -50,4 +50,16 @@ public class PlaneTest {
         assertEquals(5, plane.boarded());
         assertEquals(395, plane.space());
     }
+
+    @Test
+    public void everybodyOff(){
+        plane.addPassenger(person);
+        plane.addPassenger(person);
+        plane.addPassenger(person);
+        plane.addPassenger(person);
+        plane.addPassenger(person);
+        assertEquals(5, plane.boarded());
+        plane.everybodyOff();
+        assertEquals(0, plane.boarded());
+    }
 }

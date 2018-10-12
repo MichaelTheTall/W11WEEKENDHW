@@ -35,4 +35,8 @@ public class Plane {
         int result = maxCapacity() - boarded();
         return result;
     }
+
+    public void everybodyOff() {
+        passengers.clear();
+    }
 }
