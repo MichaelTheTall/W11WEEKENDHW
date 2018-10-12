@@ -37,6 +37,6 @@ public class FlightTest {
         assertEquals(395, flight.getPlane().space());
     }
 
-    
+
 
 }
