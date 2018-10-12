@@ -43,4 +43,12 @@ public class Airport {
     public ArrayList<Flight> getFlightList() {
         return flights;
     }
+
+    public void removeFlight(Flight flight) {
+        if (flights.contains(flight)) {
+            int index = flights.indexOf(flight);
+            flights.remove(index);
+            hangar.add(flight.getPlane());
+        }
+    }
 }

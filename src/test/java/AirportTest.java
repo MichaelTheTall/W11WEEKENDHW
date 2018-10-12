@@ -12,27 +12,27 @@ public class AirportTest {
     Flight flight;
 
     @Before
-    public void before(){
+    public void before() {
         airport = new Airport(AirportCode.EDI);
         plane = new Plane(Type.B747, Airline.BA);
         person = new Person("Testman");
         flight = new Flight(plane, 888, AirportCode.HKG);
-        findme = new Plane(Type.A380,Airline.EJ);
+        findme = new Plane(Type.A380, Airline.EJ);
     }
 
     @Test
-    public void getAirportCode(){
+    public void getAirportCode() {
         assertEquals(AirportCode.EDI, airport.getCode());
     }
 
     @Test
-    public void getHangar(){
+    public void getHangar() {
         airport.addPlane(plane);
         assertEquals(1, airport.getHangar().size());
     }
 
     @Test
-    public void checkHangarForPlane(){
+    public void checkHangarForPlane() {
         airport.addPlane(plane);
         airport.addPlane(plane);
         airport.addPlane(findme);
@@ -42,7 +42,7 @@ public class AirportTest {
     }
 
     @Test
-    public void checkHangarForInvalidPlane(){
+    public void checkHangarForInvalidPlane() {
         airport.addPlane(plane);
         airport.addPlane(plane);
         airport.addPlane(plane);
@@ -52,10 +52,22 @@ public class AirportTest {
     }
 
     @Test
-    public void addFlight(){
+    public void addFlight() {
         airport.addPlane(plane);
         airport.addFlight(plane, AirportCode.BER, 123);
         assertEquals(1, airport.getFlightList().size());
         assertEquals(0, airport.getHangar().size());
     }
+
+    @Test
+    public void removeFlight() {
+        airport.addPlane(plane);
+        airport.addFlight(plane, AirportCode.BER, 123);
+        assertEquals(1, airport.getFlightList().size());
+        assertEquals(0, airport.getHangar().size());
+        airport.removeFlight(airport.getFlightList().get(0));
+        assertEquals(0, airport.getFlightList().size());
+        assertEquals(1, airport.getHangar().size());
+    }
+
 }
