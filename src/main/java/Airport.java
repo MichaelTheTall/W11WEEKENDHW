@@ -87,11 +87,16 @@ public class Airport {
     public void assignPlane(Flight flight) {
         int tickets = flight.getManifest().size();
         for (Plane plane : hangar) {
-            if (tickets < plane.maxCapacity()) {
+            if (tickets <= plane.maxCapacity()) {
                 flights.put(plane, flight);
+                hangar.remove(plane);
                 break;
             }
         }
+    }
+
+    public void brokenPlane(Flight flight) {
+        assignPlane(flight);
     }
 
     public HashMap outbound() {

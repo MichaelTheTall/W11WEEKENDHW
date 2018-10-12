@@ -140,6 +140,25 @@ public class AirportTest {
         assertEquals(200, testflight.getManifest().size());
         airport.assignPlane(testflight);
         assertEquals(true, airport.outbound().containsKey(plane));
+        assertEquals(false, airport.getHangar().contains(plane));
     }
 
+    @Test
+    public void brokenPlane() {
+        airport.addPlane(plane);
+        airport.addPlane(findme);
+        airport.addPlane(test10plane);
+        airport.addFlight(AirportCode.HKG, 111);
+        Flight testflight = airport.getFlightList().get(0);
+        for (int i = 0; i < 10; i++) {
+            airport.sellTicket(person, testflight);
+        }
+        assertEquals(10, testflight.getManifest().size());
+        airport.assignPlane(testflight);
+        assertEquals(true, airport.outbound().containsKey(test10plane));
+        assertEquals(false, airport.getHangar().contains(test10plane));
+        airport.brokenPlane(testflight);
+        assertEquals(true, airport.outbound().containsKey(plane));
+        assertEquals(false, airport.getHangar().contains(plane));
+    }
 }
