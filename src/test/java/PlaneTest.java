@@ -25,6 +25,11 @@ public class PlaneTest {
     }
 
     @Test
+    public void getAirlineName(){
+        assertEquals("British Airways", plane.getAirline().getName());
+    }
+
+    @Test
     public void getCapacity(){
         assertEquals(400, plane.maxCapacity());
     }
