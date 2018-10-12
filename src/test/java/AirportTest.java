@@ -8,6 +8,7 @@ public class AirportTest {
     Airport airport;
     Plane plane;
     Plane findme;
+    Plane test10plane;
     Person person;
     Flight flight;
 
@@ -18,11 +19,20 @@ public class AirportTest {
         person = new Person("Testman");
         flight = new Flight(plane, 888, AirportCode.HKG);
         findme = new Plane(Type.A380, Airline.EJ);
+        test10plane = new Plane(Type.TEST10, Airline.RA);
     }
 
     @Test
     public void getAirportCode() {
         assertEquals(AirportCode.EDI, airport.getCode());
+    }
+
+    @Test
+    public void checkAddPlaneEmptiesPlane() {
+        plane.addPassenger(person);
+        assertEquals(1, plane.boarded());
+        airport.addPlane(plane);
+        assertEquals(0, plane.boarded());
     }
 
     @Test
@@ -105,4 +115,39 @@ public class AirportTest {
         airport.sellTicket(person, testflight);
         assertEquals(1, testflight.getPlane().boarded());
     }
+
+    @Test
+    public void checkTicketsSold() {
+        airport.addPlane(plane);
+        airport.addFlight(plane, AirportCode.BER, 123);
+        Flight testflight = airport.getFlightList().get(0);
+        airport.sellTicket(person, testflight);
+        airport.sellTicket(person, testflight);
+        airport.sellTicket(person, testflight);
+        airport.sellTicket(person, testflight);
+        airport.sellTicket(person, testflight);
+        assertEquals(5, testflight.getPlane().boarded());
+        assertEquals(395, testflight.getPlane().space());
+    }
+
+    public void sellTicketFullFlight() {
+        airport.addPlane(test10plane);
+        airport.addFlight(test10plane, AirportCode.BER, 1);
+        Flight testflight = airport.getFlightList().get(0);
+        airport.sellTicket(person, testflight);
+        airport.sellTicket(person, testflight);
+        airport.sellTicket(person, testflight);
+        airport.sellTicket(person, testflight);
+        airport.sellTicket(person, testflight);
+        airport.sellTicket(person, testflight);
+        airport.sellTicket(person, testflight);
+        airport.sellTicket(person, testflight);
+        airport.sellTicket(person, testflight);
+        assertEquals(10, testflight.getPlane().boarded());
+        airport.sellTicket(person, testflight);
+        assertEquals(10, testflight.getPlane().boarded());
+    }
+
+    
+
 }

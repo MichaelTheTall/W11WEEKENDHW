@@ -4,7 +4,8 @@ public enum Type {
     B777(300),
     A330(250),
     A340(350),
-    A380(600);
+    A380(600),
+    TEST10(10);
 
     private final int capacity;
 
