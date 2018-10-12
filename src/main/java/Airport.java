@@ -1,14 +1,19 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
 public class Airport {
     private AirportCode code;
     private ArrayList<Plane> hangar;
-    private ArrayList<Flight> flights;
+    private ArrayList<Flight> bookings;
+    private HashMap<Plane, Flight> flights;
 
     public Airport(AirportCode code) {
         this.code = code;
         hangar = new ArrayList<>();
-        flights = new ArrayList<>();
+        bookings = new ArrayList<>();
+        flights = new HashMap<>();
     }
 
 
@@ -20,9 +25,23 @@ public class Airport {
         return hangar;
     }
 
+    public void sortHangar() {
+        Collections.sort(hangar, new Comparator<Plane>() {
+            @Override
+            public int compare(Plane p1, Plane p2) {
+                if (p1.maxCapacity() > p2.maxCapacity())
+                    return 1;
+                if (p1.maxCapacity() < p2.maxCapacity())
+                    return -1;
+                return 0;
+            }
+        });
+    }
+
     public void addPlane(Plane plane) {
         plane.everybodyOff();
         hangar.add(plane);
+        sortHangar();
     }
 
     public Plane findPlane(Plane plane) {
@@ -37,24 +56,24 @@ public class Airport {
 
     public void addFlight(AirportCode destination, int number) {
         Flight newflight = new Flight(number, destination);
-        flights.add(newflight);
+        bookings.add(newflight);
     }
 
     public ArrayList<Flight> getFlightList() {
-        return flights;
+        return bookings;
     }
 
     public void removeFlight(Flight flight) {
-        if (flights.contains(flight)) {
-            int index = flights.indexOf(flight);
-            flights.remove(index);
+        if (bookings.contains(flight)) {
+            int index = bookings.indexOf(flight);
+            bookings.remove(index);
         }
     }
 
     public Flight findFlight(Flight flight) {
-        if (flights.contains(flight)) {
-            int index = flights.indexOf(flight);
-            Flight result = flights.get(index);
+        if (bookings.contains(flight)) {
+            int index = bookings.indexOf(flight);
+            Flight result = bookings.get(index);
             return result;
         } else {
             return null;
@@ -65,6 +84,17 @@ public class Airport {
         flight.addPassenger(person);
     }
 
+    public void assignPlane(Flight flight) {
+        int tickets = flight.getManifest().size();
+        for (Plane plane : hangar) {
+            if (tickets < plane.maxCapacity()) {
+                flights.put(plane, flight);
+                break;
+            }
+        }
+    }
 
-
+    public HashMap outbound() {
+        return flights;
+    }
 }

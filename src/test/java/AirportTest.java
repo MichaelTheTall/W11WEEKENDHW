@@ -52,6 +52,14 @@ public class AirportTest {
     }
 
     @Test
+    public void checkHangarSort() {
+        airport.addPlane(findme);
+        assertEquals(0, airport.getHangar().indexOf(findme));
+        airport.addPlane(plane);
+        assertEquals(0, airport.getHangar().indexOf(plane));
+    }
+
+    @Test
     public void checkHangarForInvalidPlane() {
         airport.addPlane(plane);
         airport.addPlane(plane);
@@ -119,6 +127,19 @@ public class AirportTest {
         assertEquals(5, testflight.getManifest().size());
     }
 
-
+    @Test
+    public void assignSmallestPlane() {
+        airport.addPlane(plane);
+        airport.addPlane(findme);
+        airport.addPlane(test10plane);
+        airport.addFlight(AirportCode.HKG, 111);
+        Flight testflight = airport.getFlightList().get(0);
+        for (int i = 0; i < 200; i++) {
+            airport.sellTicket(person, testflight);
+        }
+        assertEquals(200, testflight.getManifest().size());
+        airport.assignPlane(testflight);
+        assertEquals(true, airport.outbound().containsKey(plane));
+    }
 
 }
