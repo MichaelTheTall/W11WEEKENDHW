@@ -17,7 +17,7 @@ public class AirportTest {
         airport = new Airport(AirportCode.EDI);
         plane = new Plane(Type.B747, Airline.BA);
         person = new Person("Testman");
-        flight = new Flight(plane, 888, AirportCode.HKG);
+        flight = new Flight(888, AirportCode.HKG);
         findme = new Plane(Type.A380, Airline.EJ);
         test10plane = new Plane(Type.TEST10, Airline.RA);
     }
@@ -63,27 +63,21 @@ public class AirportTest {
 
     @Test
     public void addFlight() {
-        airport.addPlane(plane);
-        airport.addFlight(plane, AirportCode.BER, 123);
+        airport.addFlight(AirportCode.BER, 123);
         assertEquals(1, airport.getFlightList().size());
-        assertEquals(0, airport.getHangar().size());
     }
 
     @Test
     public void removeFlight() {
-        airport.addPlane(plane);
-        airport.addFlight(plane, AirportCode.BER, 123);
+        airport.addFlight(AirportCode.BER, 123);
         assertEquals(1, airport.getFlightList().size());
-        assertEquals(0, airport.getHangar().size());
         airport.removeFlight(airport.getFlightList().get(0));
         assertEquals(0, airport.getFlightList().size());
-        assertEquals(1, airport.getHangar().size());
     }
 
     @Test
     public void removeFlightInvalid() {
-        airport.addPlane(plane);
-        airport.addFlight(plane, AirportCode.BER, 123);
+        airport.addFlight(AirportCode.BER, 123);
         assertEquals(1, airport.getFlightList().size());
         airport.removeFlight(flight);
         assertEquals(1,airport.getFlightList().size());
@@ -91,17 +85,15 @@ public class AirportTest {
 
     @Test
     public void findFlight() {
-        airport.addPlane(plane);
-        airport.addFlight(plane, AirportCode.BER, 123);
+        airport.addFlight(AirportCode.BER, 123);
         assertEquals(1, airport.getFlightList().size());
         Flight findme = airport.findFlight(airport.getFlightList().get(0));
-        assertEquals(plane, findme.getPlane());
+        assertEquals(123, findme.getFlightnumber());
     }
 
     @Test
     public void findFlightInvalid() {
-        airport.addPlane(plane);
-        airport.addFlight(plane, AirportCode.BER, 123);
+        airport.addFlight(AirportCode.BER, 123);
         assertEquals(1, airport.getFlightList().size());
         Flight findme = airport.findFlight(flight);
         assertEquals(null, findme);
@@ -109,45 +101,24 @@ public class AirportTest {
 
     @Test
     public void sellTicket() {
-        airport.addPlane(plane);
-        airport.addFlight(plane, AirportCode.BER, 123);
+        airport.addFlight(AirportCode.BER, 123);
         Flight testflight = airport.getFlightList().get(0);
         airport.sellTicket(person, testflight);
-        assertEquals(1, testflight.getPlane().boarded());
+        assertEquals(1, testflight.getManifest().size());
     }
 
     @Test
     public void checkTicketsSold() {
-        airport.addPlane(plane);
-        airport.addFlight(plane, AirportCode.BER, 123);
+        airport.addFlight(AirportCode.BER, 123);
         Flight testflight = airport.getFlightList().get(0);
         airport.sellTicket(person, testflight);
         airport.sellTicket(person, testflight);
         airport.sellTicket(person, testflight);
         airport.sellTicket(person, testflight);
         airport.sellTicket(person, testflight);
-        assertEquals(5, testflight.getPlane().boarded());
-        assertEquals(395, testflight.getPlane().space());
+        assertEquals(5, testflight.getManifest().size());
     }
 
-    public void sellTicketFullFlight() {
-        airport.addPlane(test10plane);
-        airport.addFlight(test10plane, AirportCode.BER, 1);
-        Flight testflight = airport.getFlightList().get(0);
-        airport.sellTicket(person, testflight);
-        airport.sellTicket(person, testflight);
-        airport.sellTicket(person, testflight);
-        airport.sellTicket(person, testflight);
-        airport.sellTicket(person, testflight);
-        airport.sellTicket(person, testflight);
-        airport.sellTicket(person, testflight);
-        airport.sellTicket(person, testflight);
-        airport.sellTicket(person, testflight);
-        assertEquals(10, testflight.getPlane().boarded());
-        airport.sellTicket(person, testflight);
-        assertEquals(10, testflight.getPlane().boarded());
-    }
 
-    
 
 }

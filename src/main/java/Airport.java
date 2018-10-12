@@ -35,10 +35,9 @@ public class Airport {
         }
     }
 
-    public void addFlight(Plane plane, AirportCode destination, int number) {
-        Flight newflight = new Flight(plane, number, destination);
+    public void addFlight(AirportCode destination, int number) {
+        Flight newflight = new Flight(number, destination);
         flights.add(newflight);
-        hangar.remove(plane);
     }
 
     public ArrayList<Flight> getFlightList() {
@@ -49,7 +48,6 @@ public class Airport {
         if (flights.contains(flight)) {
             int index = flights.indexOf(flight);
             flights.remove(index);
-            addPlane(flight.getPlane());
         }
     }
 
@@ -64,8 +62,9 @@ public class Airport {
     }
 
     public void sellTicket(Person person, Flight flight) {
-        if (flight.getPlane().space() != 0) {
-            flight.getPlane().addPassenger(person);
-        }
+        flight.addPassenger(person);
     }
+
+
+
 }
