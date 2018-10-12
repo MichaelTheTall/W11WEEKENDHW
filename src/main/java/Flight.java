@@ -9,4 +9,7 @@ public class Flight {
         this.destination = destination;
     }
 
+    public Plane getPlane() {
+        return plane;
+    }
 }
