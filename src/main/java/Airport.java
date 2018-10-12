@@ -1,12 +1,14 @@
 import java.util.ArrayList;
 
 public class Airport {
-    private ArrayList<Plane> hangar;
     private AirportCode code;
+    private ArrayList<Plane> hangar;
+    private ArrayList<Flight> flights;
 
     public Airport(AirportCode code) {
         this.code = code;
         hangar = new ArrayList<>();
+        flights = new ArrayList<>();
     }
 
 
@@ -14,7 +16,7 @@ public class Airport {
         return code;
     }
 
-    public ArrayList getHangar() {
+    public ArrayList<Plane> getHangar() {
         return hangar;
     }
 
@@ -30,5 +32,15 @@ public class Airport {
         } else {
             return null;
         }
+    }
+
+    public void addFlight(Plane plane, AirportCode destination, int number) {
+        Flight newflight = new Flight(plane, number, destination);
+        flights.add(newflight);
+        hangar.remove(plane);
+    }
+
+    public ArrayList<Flight> getFlightList() {
+        return flights;
     }
 }

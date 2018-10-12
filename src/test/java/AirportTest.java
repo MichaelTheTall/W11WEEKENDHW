@@ -43,16 +43,19 @@ public class AirportTest {
 
     @Test
     public void checkHangarForInvalidPlane(){
-    airport.addPlane(plane);
-    airport.addPlane(plane);
-    airport.addPlane(plane);
-    airport.addPlane(plane);
-    assertEquals(4, airport.getHangar().size());
-    assertEquals(null, airport.findPlane(findme));
+        airport.addPlane(plane);
+        airport.addPlane(plane);
+        airport.addPlane(plane);
+        airport.addPlane(plane);
+        assertEquals(4, airport.getHangar().size());
+        assertEquals(null, airport.findPlane(findme));
     }
 
     @Test
-    public void bookFlight(){
-        
+    public void addFlight(){
+        airport.addPlane(plane);
+        airport.addFlight(plane, AirportCode.BER, 123);
+        assertEquals(1, airport.getFlightList().size());
+        assertEquals(0, airport.getHangar().size());
     }
 }
