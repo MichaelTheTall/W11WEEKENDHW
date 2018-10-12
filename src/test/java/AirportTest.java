@@ -70,4 +70,33 @@ public class AirportTest {
         assertEquals(1, airport.getHangar().size());
     }
 
+    @Test
+    public void removeFlightInvalid() {
+        airport.addPlane(plane);
+        airport.addFlight(plane, AirportCode.BER, 123);
+        assertEquals(1, airport.getFlightList().size());
+        airport.removeFlight(flight);
+        assertEquals(1,airport.getFlightList().size());
+    }
+
+    @Test
+    public void findFlight() {
+        airport.addPlane(plane);
+        airport.addFlight(plane, AirportCode.BER, 123);
+        assertEquals(1, airport.getFlightList().size());
+        Flight findme = airport.findFlight(airport.getFlightList().get(0));
+        assertEquals(plane, findme.getPlane());
+    }
+
+    @Test
+    public void findFlightInvalid() {
+        airport.addPlane(plane);
+        airport.addFlight(plane, AirportCode.BER, 123);
+        assertEquals(1, airport.getFlightList().size());
+        Flight findme = airport.findFlight(flight);
+        assertEquals(null, findme);
+    }
+
+    @Test
+    public void 
 }

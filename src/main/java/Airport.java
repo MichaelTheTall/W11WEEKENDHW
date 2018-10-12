@@ -51,4 +51,14 @@ public class Airport {
             hangar.add(flight.getPlane());
         }
     }
+
+    public Flight findFlight(Flight flight) {
+        if (flights.contains(flight)) {
+            int index = flights.indexOf(flight);
+            Flight result = flights.get(index);
+            return result;
+        } else {
+            return null;
+        }
+    }
 }
