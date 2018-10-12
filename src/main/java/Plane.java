@@ -5,4 +5,10 @@ public class Plane {
     private Airline airline;
     private ArrayList<Person> passengers;
 
+    public Plane(Type type, Airline airline){
+        this.type = type;
+        this. airline = airline;
+        passengers = new ArrayList<>();
+    }
+
 }
