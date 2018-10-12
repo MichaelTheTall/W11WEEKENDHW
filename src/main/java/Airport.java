@@ -21,6 +21,7 @@ public class Airport {
     }
 
     public void addPlane(Plane plane) {
+        plane.everybodyOff();
         hangar.add(plane);
     }
 
@@ -48,7 +49,7 @@ public class Airport {
         if (flights.contains(flight)) {
             int index = flights.indexOf(flight);
             flights.remove(index);
-            hangar.add(flight.getPlane());
+            addPlane(flight.getPlane());
         }
     }
 
